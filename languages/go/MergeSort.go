@@ -1,0 +1,43 @@
+// Merge Sort: Divides array in half, recursively sorts, then merges sorted halves
+// Time: O(n log n), Space: O(n)
+
+package main
+
+import "fmt"
+
+func mergeSort(arr []int) []int {
+    if len(arr) <= 1 {
+        return arr
+    }
+
+    mid := len(arr) / 2
+    left := mergeSort(arr[:mid])
+    right := mergeSort(arr[mid:])
+
+    return merge(left, right)
+}
+
+func merge(left, right []int) []int {
+    result := make([]int, 0, len(left)+len(right))
+    i, j := 0, 0
+
+    for i < len(left) && j < len(right) {
+        if left[i] <= right[j] {
+            result = append(result, left[i])
+            i++
+        } else {
+            result = append(result, right[j])
+            j++
+        }
+    }
+
+    result = append(result, left[i:]...)
+    result = append(result, right[j:]...)
+    return result
+}
+
+func main() {
+    data := []int{164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138}
+    result := mergeSort(data)
+    fmt.Printf("Sorted: %v\n", result)
+}

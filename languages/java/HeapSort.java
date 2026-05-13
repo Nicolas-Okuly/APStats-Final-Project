@@ -1,0 +1,47 @@
+// Heap Sort: Builds max heap, repeatedly extracts maximum element
+// Time: O(n log n), Space: O(1)
+
+import java.util.Arrays;
+
+public class HeapSort {
+    public static void heapSort(int[] arr) {
+        int n = arr.length;
+
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(arr, n, i);
+
+        for (int i = n - 1; i > 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+
+            heapify(arr, i, 0);
+        }
+    }
+
+    private static void heapify(int[] arr, int n, int i) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < n && arr[left] > arr[largest])
+            largest = left;
+
+        if (right < n && arr[right] > arr[largest])
+            largest = right;
+
+        if (largest != i) {
+            int temp = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = temp;
+
+            heapify(arr, n, largest);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] data = {164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138};
+        heapSort(data);
+        System.out.println("Sorted: " + Arrays.toString(data));
+    }
+}

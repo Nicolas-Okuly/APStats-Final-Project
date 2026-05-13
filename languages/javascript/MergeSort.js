@@ -1,0 +1,36 @@
+// Merge Sort: Divides array in half, recursively sorts, then merges sorted halves
+// Time: O(n log n), Space: O(n)
+
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  const result = [];
+  let i = 0,
+    j = 0;
+
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {
+      result.push(left[i++]);
+    } else {
+      result.push(right[j++]);
+    }
+  }
+
+  return result.concat(left.slice(i)).concat(right.slice(j));
+}
+
+const data = [
+  164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24,
+  56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186,
+  88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
+];
+const result = mergeSort([...data]);
+console.log(`Sorted: ${result}`);
