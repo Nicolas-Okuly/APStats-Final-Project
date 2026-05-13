@@ -88,7 +88,46 @@ Page size (bytes): 4096
 Exit status: 0
 ```
 
-The values I am interested in is "System Time (seconds)" as the time statistic, and "Maximum resident set size (kbytes)" as the memory statistic.
+The values I am interested in is "Elapsed (wall clock) time (h:mm:ss or m:ss)" as the time statistic, and "Maximum resident set size (kbytes)" as the memory statistic.
 
 ## Data Collection
 
+
+### Test Data
+```python
+[164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138]
+```
+
+### Python Executions
+
+#### Binary Search
+Binary Search: Divides sorted array in half repeatedly to find target<br>
+Time: O(log n), Space: O(1)<br>
+```txt
+Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
+Maximum resident set size (kbytes): 8408
+```
+
+#### Bubble Sort
+Bubble Sort: Repeatedly swaps adjacent elements if they're in wrong order<br>
+Time: O(n²), Space: O(1)<br>
+```txt
+Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
+Maximum resident set size (kbytes): 8540
+```
+
+#### Counting Sort
+Counting Sort: Counts occurrences of each value, reconstructs sorted array<br>
+Time: O(n + k) where k is range, Space: O(k)<br>
+```txt
+Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
+Maximum resident set size (kbytes): 8632
+```
+
+#### Heap Sort
+Heap Sort: Builds max heap, repeatedly extracts maximum element<br>
+Time: O(n log n), Space: O(1)<br>
+```txt
+Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
+Maximum resident set size (kbytes): 8592
+```
