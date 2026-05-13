@@ -92,4 +92,3 @@ The values I am interested in is "System Time (seconds)" as the time statistic, 
 
 ## Data Collection
 
-### Thank you to [The Algorithms](https://github.com/TheAlgorithms) on Github for the code I will be using to collect data.
