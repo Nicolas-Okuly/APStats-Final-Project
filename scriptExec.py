@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 
 BASE_DIR = Path("languages")
-README_PATH = BASE_DIR / "README.md"
+README_PATH = BASE_DIR / "DATA.md"
 
 LANGUAGE_COMMANDS = {
     "python": lambda file: ["python3", str(file)],
@@ -52,7 +52,7 @@ def compile_and_run_java(file):
 
     class_name = file.stem
 
-    return ["java", "-cp", temp_dir, class_name], temp_dir
+    return ["java", "-cp", temp_dir, class_name]
 
 def compile_and_run_csharp(file):
     output = tempfile.NamedTemporaryFile(suffix=".exe", delete=False).name
