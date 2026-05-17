@@ -44,9 +44,10 @@ def compile_and_run_rust(file):
 
 def compile_and_run_java(file):
     temp_dir = tempfile.mkdtemp()
+    java_sources = sorted(str(source) for source in file.parent.glob("*.java"))
 
     subprocess.run(
-        ["javac", "-d", temp_dir, str(file)],
+        ["javac", "-d", temp_dir, *java_sources],
         check=True
     )
 

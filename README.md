@@ -58,11 +58,13 @@ To keep the study structured, I will use the following algorithms and languages.
 Because this creates a large number of comparisons, I will keep the input sizes and trial conditions consistent across every language and algorithm.
 
 The command used to track time and memory is as follows:
+
 ```bash
 /usr/bin/time -v [command]
 ```
 
 The output looks like the following:
+
 ```txt
 User time (seconds): 0.01
 System time (seconds): 0.00
@@ -93,55 +95,98 @@ The values I am interested in is "Elapsed (wall clock) time (h:mm:ss or m:ss)" a
 ## Data Collection
 
 ### System Requirements (Debian/Linux)
+
 ```bash
 sudo apt install g++ mono-mcs default-jdk golang rustc nodejs python3
 ```
 
-### Test Data
-```python
-[164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138,
-164, 29, 7, 190, 71, 63, 58, 36, 189, 27, 174, 140, 23, 152, 109, 9, 8, 24, 56, 60, 130, 155, 198, 144, 51, 167, 192, 108, 57, 115, 151, 72, 2, 41, 186, 88, 169, 40, 182, 87, 191, 183, 98, 25, 92, 89, 68, 12, 118, 138]
+### Test Data - n = 100,000
+Dataset is in dataset.txt.
+
+All data will be stored in /languages/DATA.md
+
+**Because of how fast C++ and Rust is, they had to be removed from this study. All counts showed 0.00s which is unusable.**
+
+### C++
+
+Average Actual Runtime
+```math
+(0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00) / 10 = 0.00
 ```
 
-### Python Executions
-
-#### Binary Search
-Binary Search: Divides sorted array in half repeatedly to find target<br>
-Time: O(log n), Space: O(1)<br>
-```txt
-Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
-Maximum resident set size (kbytes): 8408
+Average Actual Memory
+```math
+(3452 + 3448 + 3488 + 3452 + 3452 + 3448 + 3512 + 3488 + 3452 + 3452) / 10 = 3464.4
 ```
 
-#### Bubble Sort
-Bubble Sort: Repeatedly swaps adjacent elements if they're in wrong order<br>
-Time: O(n²), Space: O(1)<br>
-```txt
-Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
-Maximum resident set size (kbytes): 8540
+### C#
+
+Average Actual Runtime
+```math
+(0.03 + 0.05 + 0.03 + 0.06 + 0.05 + 0.05 + 0.06 + 0.05 + 0.07 + 0.05) / 10 = 0.05
 ```
 
-#### Counting Sort
-Counting Sort: Counts occurrences of each value, reconstructs sorted array<br>
-Time: O(n + k) where k is range, Space: O(k)<br>
-```txt
-Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
-Maximum resident set size (kbytes): 8632
+Average Actual Memory
+```math
+(16664 + 16688 + 17996 + 16948 + 16876 + 16760 + 16736 + 16632 + 17752 + 16788) / 10 = 16984.0
 ```
 
-#### Heap Sort
-Heap Sort: Builds max heap, repeatedly extracts maximum element<br>
-Time: O(n log n), Space: O(1)<br>
-```txt
-Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
-Maximum resident set size (kbytes): 8592
+### Go
+
+Average Actual Runtime
+```math
+(0.33 + 0.36 + 0.33 + 0.33 + 0.37 + 0.33 + 0.32 + 0.32 + 0.32 + 0.33) / 10 = 0.334
+```
+
+Average Actual Memory
+```math
+(41184 + 42024 + 42040 + 42288 + 42412 + 42160 + 42184 + 39732 + 42200 + 42436) / 10 = 41866.0
+```
+
+### Java
+
+Average Actual Runtime
+```math
+(0.18 + 0.17 + 0.18 + 0.17 + 0.20 + 0.18 + 0.17 + 0.16 + 0.18 + 0.16) / 10 = 0.175
+```
+
+Average Actual Memory
+```math
+(40828 + 40368 + 41056 + 40664 + 40576 + 40928 + 40212 + 39996 + 41152 + 40800) / 10 = 40658.0
+```
+
+### JavaScript
+
+Average Actual Runtime
+```math
+(0.06 + 0.08 + 0.06 + 0.07 + 0.07 + 0.04 + 0.06 + 0.06 + 0.07 + 0.07) / 10 = 0.064
+```
+
+Average Actual Memory
+```math
+(42300 + 49812 + 42212 + 49248 + 47880 + 42088 + 43004 + 47828 + 42524 + 49612) / 10 = 45650.8
+```
+
+### Python
+
+Average Actual Runtime
+```math
+(0.03 + 0.04 + 0.03 + 0.03 + 0.05 + 0.03 + 0.03 + 0.03 + 0.03 + 0.04) / 10 =  0.034
+```
+
+Average Actual Memory
+```math
+(8968 + 8960 + 9104 + 9072 + 9016 + 8808 + 9244 + 8928 + 9260 + 9056) / 10 = 9041.6
+```
+
+### Rust
+
+Average Actual Runtime
+```math
+(0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00) / 10 = 0.00
+```
+
+Average Actual Memory
+```math
+(2040 + 1896 + 2020 + 2020 + 2036 + 2024 + 1896 + 2044 + 2020 + 2040) / 10 = 2003.6
 ```
