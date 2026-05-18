@@ -23,17 +23,18 @@ To keep the study structured, I will use the following algorithms and languages.
                 <tr>
                     <th>#</th>
                     <th>Algorithm</th>
+                    <th>Big O Notation</th>
                 </tr>
-                <tr><td>1</td><td>Linear search</td></tr>
-                <tr><td>2</td><td>Binary search</td></tr>
-                <tr><td>3</td><td>Bubble sort</td></tr>
-                <tr><td>4</td><td>Selection sort</td></tr>
-                <tr><td>5</td><td>Insertion sort</td></tr>
-                <tr><td>6</td><td>Merge sort</td></tr>
-                <tr><td>7</td><td>Quick sort</td></tr>
-                <tr><td>8</td><td>Heap sort</td></tr>
-                <tr><td>9</td><td>Counting sort</td></tr>
-                <tr><td>10</td><td>Radix sort</td></tr>
+                <tr><td>1</td><td>Linear search</td><td>O(n)</td></tr>
+                <tr><td>2</td><td>Binary search</td><td>O(log n)</td></tr>
+                <tr><td>3</td><td>Bubble sort</td><td>O(n²)</td></tr>
+                <tr><td>4</td><td>Selection sort</td><td>O(n²)</td></tr>
+                <tr><td>5</td><td>Insertion sort</td><td>O(n²)</td></tr>
+                <tr><td>6</td><td>Merge sort</td><td>O(n log n)</td></tr>
+                <tr><td>7</td><td>Quick sort</td><td>O(n log n) average, O(n²) worst</td></tr>
+                <tr><td>8</td><td>Heap sort</td><td>O(n log n)</td></tr>
+                <tr><td>9</td><td>Counting sort</td><td>O(n + k)</td></tr>
+                <tr><td>10</td><td>Radix sort</td><td>O(d * (n + k))</td></tr>
             </table>
 		</td>
         <!---->
@@ -100,93 +101,293 @@ The values I am interested in is "Elapsed (wall clock) time (h:mm:ss or m:ss)" a
 sudo apt install g++ mono-mcs default-jdk golang rustc nodejs python3
 ```
 
+![Data collection output - script](./pictures/liveActionData.png)
+
+<br>
+
+![Data collection output - DATA.md](./pictures/liveActionData2.png)
+
 ### Test Data - n = 100,000
+
 Dataset is in dataset.txt.
 
 All data will be stored in /languages/DATA.md
 
-**Because of how fast C++ and Rust is, they had to be removed from this study. All counts showed 0.00s which is unusable.**
+For the estimates below, I used `k = 199` from the dataset range and `d = 3` decimal digits for radix sort.
+
+## Actual Values
+
+The table below shows the actual mean runtime and memory values from the benchmark data.
+
+| Language   | Average Runtime | Average Memory |
+| ---------- | --------------: | -------------: |
+| C++        |           3.952 |         3954.0 |
+| C#         |           7.440 |        25440.0 |
+| Go         |           4.843 |        83724.0 |
+| Java       |           0.108 |        39488.0 |
+| JavaScript |           8.387 |        71933.2 |
+| Python     |         226.693 |        99020.8 |
+| Rust       |           0.055 |         4567.2 |
+
+<details>
+<summary>Show the actual-value average calculations</summary>
 
 ### C++
 
-Average Actual Runtime
 ```math
-(0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00) / 10 = 0.00
+(0.01 + 19.48 + 0.03 + 0.03 + 3.93 + 0.00 + 0.05 + 0.03 + 0.03 + 15.93) / 10 = 3.952
 ```
 
-Average Actual Memory
 ```math
-(3452 + 3448 + 3488 + 3452 + 3452 + 3448 + 3512 + 3488 + 3452 + 3452) / 10 = 3464.4
+(3448 + 3448 + 7672 + 3444 + 3448 + 3464 + 3832 + 3448 + 3900 + 3436) / 10 = 3954.0
 ```
 
 ### C#
 
-Average Actual Runtime
 ```math
-(0.03 + 0.05 + 0.03 + 0.06 + 0.05 + 0.05 + 0.06 + 0.05 + 0.07 + 0.05) / 10 = 0.05
+(0.10 + 46.64 + 0.14 + 0.15 + 11.43 + 0.04 + 0.15 + 0.05 + 0.06 + 15.64) / 10 = 7.440
 ```
 
-Average Actual Memory
 ```math
-(16664 + 16688 + 17996 + 16948 + 16876 + 16760 + 16736 + 16632 + 17752 + 16788) / 10 = 16984.0
+(16640 + 26232 + 31492 + 26356 + 26200 + 16448 + 28788 + 26332 + 29552 + 26360) / 10 = 25440.0
 ```
 
 ### Go
 
-Average Actual Runtime
 ```math
-(0.33 + 0.36 + 0.33 + 0.33 + 0.37 + 0.33 + 0.32 + 0.32 + 0.32 + 0.33) / 10 = 0.334
+(1.22 + 24.07 + 1.10 + 1.32 + 4.94 + 1.18 + 1.14 + 1.05 + 1.27 + 11.14) / 10 = 4.843
 ```
 
-Average Actual Memory
 ```math
-(41184 + 42024 + 42040 + 42288 + 42412 + 42160 + 42184 + 39732 + 42200 + 42436) / 10 = 41866.0
+(84392 + 81816 + 85332 + 83224 + 83160 + 82268 + 83924 + 81944 + 85976 + 85204) / 10 = 83724.0
 ```
 
 ### Java
 
-Average Actual Runtime
 ```math
-(0.18 + 0.17 + 0.18 + 0.17 + 0.20 + 0.18 + 0.17 + 0.16 + 0.18 + 0.16) / 10 = 0.175
+(0.12 + 0.10 + 0.11 + 0.11 + 0.09 + 0.12 + 0.10 + 0.10 + 0.11 + 0.12) / 10 = 0.108
 ```
 
-Average Actual Memory
 ```math
-(40828 + 40368 + 41056 + 40664 + 40576 + 40928 + 40212 + 39996 + 41152 + 40800) / 10 = 40658.0
+(39512 + 39504 + 39320 + 39576 + 39400 + 39528 + 39328 + 39588 + 39524 + 39600) / 10 = 39488.0
 ```
 
 ### JavaScript
 
-Average Actual Runtime
 ```math
-(0.06 + 0.08 + 0.06 + 0.07 + 0.07 + 0.04 + 0.06 + 0.06 + 0.07 + 0.07) / 10 = 0.064
+(0.32 + 35.73 + 0.58 + 0.48 + 9.32 + 0.40 + 0.69 + 0.66 + 0.40 + 35.29) / 10 = 8.387
 ```
 
-Average Actual Memory
 ```math
-(42300 + 49812 + 42212 + 49248 + 47880 + 42088 + 43004 + 47828 + 42524 + 49612) / 10 = 45650.8
+(56344 + 68252 + 76036 + 66180 + 64416 + 56032 + 83240 + 109848 + 69712 + 69272) / 10 = 71933.2
 ```
 
 ### Python
 
-Average Actual Runtime
 ```math
-(0.03 + 0.04 + 0.03 + 0.03 + 0.05 + 0.03 + 0.03 + 0.03 + 0.03 + 0.04) / 10 =  0.034
+(0.53 + 1095.36 + 1.10 + 1.15 + 641.34 + 0.66 + 1.08 + 1.01 + 1.10 + 523.60) / 10 = 226.693
 ```
 
-Average Actual Memory
 ```math
-(8968 + 8960 + 9104 + 9072 + 9016 + 8808 + 9244 + 8928 + 9260 + 9056) / 10 = 9041.6
+(96636 + 96604 + 120432 + 96616 + 96648 + 96436 + 96764 + 96712 + 96700 + 96660) / 10 = 99020.8
 ```
 
 ### Rust
 
-Average Actual Runtime
 ```math
-(0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00 + 0.00) / 10 = 0.00
+(0.01 + 0.17 + 0.05 + 0.04 + 0.02 + 0.00 + 0.04 + 0.03 + 0.03 + 0.16) / 10 = 0.055
 ```
 
-Average Actual Memory
 ```math
-(2040 + 1896 + 2020 + 2020 + 2036 + 2024 + 1896 + 2044 + 2020 + 2040) / 10 = 2003.6
+(3636 + 3096 + 11420 + 3228 + 3232 + 3104 + 3740 + 3256 + 3704 + 3256) / 10 = 4567.2
 ```
+
+</details>
+
+The table below converts the n=1 baselines into projected estimates using each algorithm's Big O class.
+
+| Language   | Estimated Runtime | Estimated Memory |
+| ---------- | ----------------: | ---------------: |
+| C++        |        118581.672 |          792.463 |
+| C#         |        223240.799 |         5098.700 |
+| Go         |        145316.558 |        16780.015 |
+| Java       |          3240.592 |         7914.209 |
+| JavaScript |        251655.992 |        14416.896 |
+| Python     |       6802033.117 |        19845.809 |
+| Rust       |          1650.302 |          915.361 |
+
+<details>
+<summary>Show the full calculation work</summary>
+
+### C++
+
+```math
+0.00003952 \times \frac{100000 + \log_2(100000) + 100000^2 + 100000^2 + 100000^2 + 100000 \log_2(100000) + 100000 \log_2(100000) + 100000 \log_2(100000) + (100000 + 199) + 3(100000 + 199)}{10} = 118581.672
+```
+
+```math
+0.03954 \times \frac{1 + 1 + 1 + 1 + 1 + 100000 + \log_2(100000) + 1 + 199 + (100000 + 199)}{10} = 792.463
+```
+
+### C#
+
+```math
+0.0000744 \times \frac{100000 + \log_2(100000) + 100000^2 + 100000^2 + 100000^2 + 100000 \log_2(100000) + 100000 \log_2(100000) + 100000 \log_2(100000) + (100000 + 199) + 3(100000 + 199)}{10} = 223240.799
+```
+
+```math
+0.2544 \times \frac{1 + 1 + 1 + 1 + 1 + 100000 + \log_2(100000) + 1 + 199 + (100000 + 199)}{10} = 5098.700
+```
+
+### Go
+
+```math
+0.00004843 \times \frac{100000 + \log_2(100000) + 100000^2 + 100000^2 + 100000^2 + 100000 \log_2(100000) + 100000 \log_2(100000) + 100000 \log_2(100000) + (100000 + 199) + 3(100000 + 199)}{10} = 145316.558
+```
+
+```math
+0.83724 \times \frac{1 + 1 + 1 + 1 + 1 + 100000 + \log_2(100000) + 1 + 199 + (100000 + 199)}{10} = 16780.015
+```
+
+### Java
+
+```math
+0.00000108 \times \frac{100000 + \log_2(100000) + 100000^2 + 100000^2 + 100000^2 + 100000 \log_2(100000) + 100000 \log_2(100000) + 100000 \log_2(100000) + (100000 + 199) + 3(100000 + 199)}{10} = 3240.592
+```
+
+```math
+0.39488 \times \frac{1 + 1 + 1 + 1 + 1 + 100000 + \log_2(100000) + 1 + 199 + (100000 + 199)}{10} = 7914.209
+```
+
+### JavaScript
+
+```math
+0.00008387 \times \frac{100000 + \log_2(100000) + 100000^2 + 100000^2 + 100000^2 + 100000 \log_2(100000) + 100000 \log_2(100000) + 100000 \log_2(100000) + (100000 + 199) + 3(100000 + 199)}{10} = 251655.992
+```
+
+```math
+0.719332 \times \frac{1 + 1 + 1 + 1 + 1 + 100000 + \log_2(100000) + 1 + 199 + (100000 + 199)}{10} = 14416.896
+```
+
+### Python
+
+```math
+0.00226693 \times \frac{100000 + \log_2(100000) + 100000^2 + 100000^2 + 100000^2 + 100000 \log_2(100000) + 100000 \log_2(100000) + 100000 \log_2(100000) + (100000 + 199) + 3(100000 + 199)}{10} = 6802033.117
+```
+
+```math
+0.990208 \times \frac{1 + 1 + 1 + 1 + 1 + 100000 + \log_2(100000) + 1 + 199 + (100000 + 199)}{10} = 19845.809
+```
+
+### Rust
+
+```math
+0.00000055 \times \frac{100000 + \log_2(100000) + 100000^2 + 100000^2 + 100000^2 + 100000 \log_2(100000) + 100000 \log_2(100000) + 100000 \log_2(100000) + (100000 + 199) + 3(100000 + 199)}{10} = 1650.302
+```
+
+```math
+0.045672 \times \frac{1 + 1 + 1 + 1 + 1 + 100000 + \log_2(100000) + 1 + 199 + (100000 + 199)}{10} = 915.361
+```
+
+</details>
+
+The table below shows the difference between the estimated and actual values.
+
+| Language   | Runtime Difference | Memory Difference |
+| ---------- | -----------------: | ----------------: |
+| C++        |         118577.720 |         -3161.537 |
+| C#         |         223233.359 |        -20341.300 |
+| Go         |         145311.715 |        -66943.985 |
+| Java       |           3240.484 |        -31573.791 |
+| JavaScript |         251647.605 |        -57516.304 |
+| Python     |        6801806.424 |        -79174.991 |
+| Rust       |           1650.247 |         -3651.839 |
+
+## Data Graphs and Summary Statistics
+
+### Difference in memory
+
+![Memory difference](./pictures/memoryDiff.png)
+
+### Difference in runtime
+
+![Runtime difference](./pictures/runtimeDiff.png)
+
+## Statistical Analysis
+
+For each language, compute the 10 paired differences (estimated runtime/memory minus actual runtime/memory) across the 10 algorithms. I will use a **one-sample t-test** on these differences to test:
+
+- **Null Hypothesis (H₀):** The mean difference = 0 (estimates match actuals on average)
+- **Alternative Hypothesis (Hₐ):** The mean difference ≠ 0 (estimates systematically differ from actuals)
+
+I will report the mean difference, standard deviation of differences, t-statistic, and a **95% t confidence interval** for the mean difference for each language. This directly tests the difference in means to determine whether the Big O model accurately predicts actual performance.
+
+**Disclaimer: these results should be interpreted with caution because the one-sample t-test conditions are not fully met. The sample size is small, the languages are not a random sample, and the runtime data in particular is strongly right-skewed with an extreme outlier, so the t-based results are only approximate.**
+
+---
+
+### Runtime Calculations
+
+#### Number Summary Runtime (n=7)
+
+| Min      | Q1       | Median   | Q3       | Max         | Mean    | StdDev  |
+| -------- | -------- | -------- | -------- | ----------- | ------- | ------- |
+| 1650.247 | 3240.484 | 145311.7 | 251647.6 | 6801806.424 | 1077924 | 2525849 |
+
+#### One-sample t-test for a mean
+
+| H0    | Ha    | x̄       | s       | n   | α    | t-stat   | p-value   | df  |
+| ----- | ----- | ------- | ------- | --- | ---- | -------- | --------- | --- |
+| μ = 0 | μ ≠ 0 | 1077924 | 2525849 | 7   | 0.05 | 1.129093 | 0.3019695 | 6   |
+
+#### One-same t-interval for a mean
+
+| x̄       | s       | n   | Confidence level | t\*      | SE       | ME      | df  | Interval            |
+| ------- | ------- | --- | ---------------- | -------- | -------- | ------- | --- | ------------------- |
+| 1077924 | 2525849 | 7   | 0.95             | 2.446912 | 954681.1 | 2336021 | 6   | (-1258097, 3413945) |
+
+Conclusion: the runtime test is not significant at $\alpha = 0.05$, so there is not enough evidence that the mean runtime difference is different from 0. The 95% confidence interval includes 0, which matches that result.
+
+How they relate: for a two-sided test, a 95% confidence interval that contains 0 corresponds to failing to reject $H_0$ at the 0.05 level.
+
+---
+
+### Memory Calculations
+
+#### Number Summary Memory (n=7)
+
+| Min       | Q1        | Median    | Q3        | Max       | Mean      | StdDev  |
+| --------- | --------- | --------- | --------- | --------- | --------- | ------- |
+| -79174.99 | -66943.99 | -31573.79 | -3651.839 | -3161.537 | -37480.54 | 30710.4 |
+
+#### One-sample t-test for a mean
+
+| H0    | Ha    | x̄         | s       | n   | α    | t-stat   | p-value    | df  |
+| ----- | ----- | --------- | ------- | --- | ---- | -------- | ---------- | --- |
+| μ = 0 | μ ≠ 0 | -37480.54 | 30710.4 | 7   | 0.05 | -3.22901 | 0.01793279 | 6   |
+
+#### One-same t-interval for a mean
+
+| x̄         | s       | n   | Confidence level | t\*      | SE       | ME       | df  | Interval              |
+| --------- | ------- | --- | ---------------- | -------- | -------- | -------- | --- | --------------------- |
+| -37480.54 | 30710.4 | 7   | 0.95             | 2.446912 | 11607.44 | 28402.38 | 6   | (-65882.92, -9078.16) |
+
+Conclusion: the memory test is significant at $\alpha = 0.05$, so there is evidence that the mean memory difference is not 0. The 95% confidence interval stays entirely below 0, which indicates the mean difference is negative.
+
+How they relate: for a two-sided test, a 95% confidence interval that does not contain 0 corresponds to rejecting $H_0$ at the 0.05 level.
+
+## Conclusion
+
+Overall, the memory data provides evidence that the mean difference between predicted and actual values is not 0, because the p-value is below 0.05 and the 95% confidence interval does not include 0. The runtime data does not provide enough evidence of a mean difference, because the p-value is above 0.05 and the interval includes 0.
+
+### Possible Errors
+
+For runtime, a Type II error would mean concluding there is no real average difference when one actually exists. For memory, a Type I error would mean concluding there is a real average difference when the true mean difference is actually 0.
+
+### Limitations
+
+This study has a small sample size of 7 languages, and the languages were not randomly selected. The runtime data is also strongly skewed with an extreme outlier, so the t-based methods are only approximate. In addition, the estimated values are based on a Big O model with simplifying assumptions, so the predictions are not exact measurements.
+
+### Improvements Next Time
+
+Next time, I would collect more languages or more repeated trials, use a random or more representative sample of languages, and separate the analysis into runtime and memory more carefully. I would also keep the measurement conditions more consistent and record more detailed data so the predicted values can be compared with less noise.
